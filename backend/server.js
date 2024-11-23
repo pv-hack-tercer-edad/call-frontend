@@ -42,6 +42,27 @@ app.post("/create-web-call", async (req, res) => {
   }
 });
 
+app.get("/generative-questions", async (req, res) => {
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/generative-questions`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    res.status(200).json(response.data);
+  } catch (error) {
+    console.error(
+      "Error fetching questions:",
+      error.response?.data || error.message
+    );
+    res.status(500).json({ error: "Failed to fetch questions" });
+  }
+});
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
