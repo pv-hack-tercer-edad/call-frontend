@@ -1,9 +1,11 @@
 "use client";
 
 import RecordButton from "@/app/components/Record";
+import { useParams } from "next/navigation";
 
-const Home = async ({ params }: any) => {
-  console.log(params["id"]);
-  return <RecordButton />;
+const Home = () => {
+  const params = useParams();
+
+  return <RecordButton categoryId={params.id} />;
 };
 export default Home;
