@@ -2,20 +2,16 @@ const express = require("express");
 const axios = require("axios");
 const cors = require("cors");
 const app = express();
-const port = 8080;
+const port = process.env.PORT || 8080;
 
-// Middleware to parse JSON bodies
 app.use(cors());
 
 app.use(express.json());
 
 app.post("/create-web-call", async (req, res) => {
   const { agent_id, metadata, retell_llm_dynamic_variables } = req.body;
-
-  // Prepare the payload for the API request
   const payload = { agent_id };
 
-  // Conditionally add optional fields if they are provided
   if (metadata) {
     payload.metadata = metadata;
   }
@@ -26,7 +22,7 @@ app.post("/create-web-call", async (req, res) => {
 
   try {
     const response = await axios.post(
-      "https://api.retellai.com/v2/create-web-call",
+      `${process.env.API_RETELLAI}/v2/create-web-call`,
       payload,
       {
         headers: {
