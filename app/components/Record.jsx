@@ -100,7 +100,7 @@ const RecordButton = () => {
       <div className="flex space-x-4">
         <button
           onClick={toggleConversation}
-          className={`bg-gradient-to-r from-blue-500 via-purple-500 to-blue-600 hover:from-blue-600 hover:via-purple-600 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-full shadow-lg transform transition-all duration-300 w-48 h-48 flex items-center justify-center ${
+          className={`bg-gradient-to-r from-blue-500 via-purple-500 to-blue-600 hover:from-blue-600 hover:via-purple-600 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-full drop-shadow-xl transform transition-all duration-300 w-48 h-48 flex items-center justify-center ${
             isAgentTalking ? "animate-pulse" : ""
           }`}
         >
