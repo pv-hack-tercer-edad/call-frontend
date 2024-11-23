@@ -42,7 +42,7 @@ export default async function handler(req, res) {
         payload,
         {
           headers: {
-            Authorization: "Bearer YOUR_API_KEY", // Replace with your actual Bearer token
+            Authorization: "Bearer token", // Replace with your actual Bearer token
             "Content-Type": "application/json",
           },
         }

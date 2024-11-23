@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 
 import { RetellWebClient } from "retell-client-js-sdk";
 
-const agentId = "agent_63bb7d6952d77282eebf5b9529";
+const agentId = "your_agent_id";
 
 const retellWebClient = new RetellWebClient();
 
@@ -37,18 +37,18 @@ const RecordButton = () => {
     // Real time pcm audio bytes being played back, in format of Float32Array
     // only available when emitRawAudioSamples is true
     retellWebClient.on("audio", (audio) => {
-      // console.log(audio);
+      console.log(audio);
     });
 
     // Update message such as transcript
     // You can get transcrit with update.transcript
     // Please note that transcript only contains last 5 sentences to avoid the payload being too large
     retellWebClient.on("update", (update) => {
-      // console.log(update);
+      console.log(update);
     });
 
     retellWebClient.on("metadata", (metadata) => {
-      // console.log(metadata);
+      console.log(metadata);
     });
 
     retellWebClient.on("error", (error) => {
@@ -63,6 +63,8 @@ const RecordButton = () => {
       retellWebClient.stopCall();
     } else {
       const registerCallResponse = await registerCall(agentId);
+      const callId = registerCallResponse.call_id;
+      console.log("callId", callId);
       if (registerCallResponse.access_token) {
         retellWebClient
           .startCall({
