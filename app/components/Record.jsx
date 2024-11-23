@@ -71,7 +71,7 @@ const RecordButton = () => {
     }
   };
 
-  async function registerCall(agentId) {
+  async function registerCall(agentId, content) {
     try {
       const response = await fetch(`${api_server}/create-web-call`, {
         method: "POST",
@@ -80,6 +80,9 @@ const RecordButton = () => {
         },
         body: JSON.stringify({
           agent_id: agentId,
+          retell_llm_dynamic_variables: {
+            category: content,
+          },
         }),
       });
 
