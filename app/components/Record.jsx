@@ -6,6 +6,7 @@ import { RetellWebClient } from "retell-client-js-sdk";
 import Chat from "./Chat";
 
 const agentId = process.env.AGENT_ID;
+const api_server = process.env.API_SERVER;
 const retellWebClient = new RetellWebClient();
 
 const RecordButton = () => {
@@ -72,18 +73,15 @@ const RecordButton = () => {
 
   async function registerCall(agentId) {
     try {
-      const response = await fetch(
-        `${process.env.API_SERVER}/create-web-call`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            agent_id: agentId,
-          }),
-        }
-      );
+      const response = await fetch(`${api_server}/create-web-call`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          agent_id: agentId,
+        }),
+      });
 
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
