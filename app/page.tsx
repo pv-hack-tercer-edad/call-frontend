@@ -1,4 +1,4 @@
-import { RecordButton } from "./components/Record";
+import RecordButton from "./components/Record";
 
 export default function Home() {
   return (
