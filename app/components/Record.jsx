@@ -1,15 +1,17 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-
+import { CiMicrophoneOn, CiMicrophoneOff } from "react-icons/ci";
 import { RetellWebClient } from "retell-client-js-sdk";
+import Chat from "./Chat";
 
 const agentId = "your_agent_id";
-
 const retellWebClient = new RetellWebClient();
 
 const RecordButton = () => {
   const [isCalling, setIsCalling] = useState(false);
+  const [isAgentTalking, setIsAgentTalking] = useState(false);
+  const [conversation, setConversation] = useState([]);
 
   // Initialize the SDK
   useEffect(() => {
@@ -22,28 +24,18 @@ const RecordButton = () => {
       setIsCalling(false);
     });
 
-    // When agent starts talking for the utterance
-    // useful for animation
     retellWebClient.on("agent_start_talking", () => {
       console.log("agent_start_talking");
+      setIsAgentTalking(true);
     });
 
-    // When agent is done talking for the utterance
-    // useful for animation
     retellWebClient.on("agent_stop_talking", () => {
       console.log("agent_stop_talking");
+      setIsAgentTalking(false);
     });
 
-    // Real time pcm audio bytes being played back, in format of Float32Array
-    // only available when emitRawAudioSamples is true
-    retellWebClient.on("audio", (audio) => {
-      console.log(audio);
-    });
-
-    // Update message such as transcript
-    // You can get transcrit with update.transcript
-    // Please note that transcript only contains last 5 sentences to avoid the payload being too large
     retellWebClient.on("update", (update) => {
+      setConversation((prev) => [...prev, update]);
       console.log(update);
     });
 
@@ -53,7 +45,6 @@ const RecordButton = () => {
 
     retellWebClient.on("error", (error) => {
       console.error("An error occurred:", error);
-      // Stop the call
       retellWebClient.stopCall();
     });
   }, []);
@@ -71,24 +62,22 @@ const RecordButton = () => {
             accessToken: registerCallResponse.access_token,
           })
           .catch(console.error);
-        setIsCalling(true); // Update button to "Stop" when conversation starts
+        setConversation([]);
+        setIsAgentTalking(false);
+        setIsCalling(true);
       }
     }
   };
 
   async function registerCall(agentId) {
     try {
-      // Update the URL to match the new backend endpoint you created
       const response = await fetch("http://localhost:8080/create-web-call", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          agent_id: agentId, // Pass the agentId as agent_id
-          // You can optionally add metadata and retell_llm_dynamic_variables here if needed
-          // metadata: { your_key: "your_value" },
-          // retell_llm_dynamic_variables: { variable_key: "variable_value" }
+          agent_id: agentId,
         }),
       });
 
@@ -105,12 +94,27 @@ const RecordButton = () => {
   }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <button onClick={toggleConversation}>
-          {isCalling ? "Stop" : "Start"}
+    <div className="flex flex-col items-center justify-center">
+      {isCalling && <Chat conversation={conversation} />}
+
+      <div className="flex space-x-4">
+        <button
+          onClick={toggleConversation}
+          className={`bg-gradient-to-r from-blue-500 via-purple-500 to-blue-600 hover:from-blue-600 hover:via-purple-600 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-full shadow-lg transform transition-all duration-300 w-48 h-48 flex items-center justify-center ${
+            isAgentTalking ? "animate-pulse" : ""
+          }`}
+        >
+          {isCalling ? (
+            <CiMicrophoneOff size={100} />
+          ) : (
+            <CiMicrophoneOn size={100} />
+          )}
         </button>
-      </header>
+      </div>
+
+      <p className="mt-6 text-lg font-medium text-blue-900">
+        {!isCalling ? "Presiona para iniciar." : "Presiona para detener."}
+      </p>
     </div>
   );
 };
