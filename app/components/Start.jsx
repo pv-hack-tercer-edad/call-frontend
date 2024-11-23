@@ -9,7 +9,7 @@ function Start() {
     setIsSliding(true);
     setTimeout(() => {
       setIsSliding(false);
-      window.location.href = "/podcast";
+      window.location.href = "/categories";
     }, 900);
   };
 
