@@ -15,7 +15,7 @@ const Chat = ({ conversation }) => {
   }, [conversation]);
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-lg w-full max-w-2xl mb-8 h-64 overflow-y-auto">
+    <div className="container bg-white rounded-lg shadow-lg min-w-[800px] mb-8 h-64 overflow-y-auto p-4">
       {latestMessage.map((message, idx) => (
         <div
           key={idx}
