@@ -78,20 +78,24 @@ const Categories = () => {
             Elige la categoría de la cual quieres ser parte
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {isLoading
-            ? [...Array(4)].map((_, index) => <CategorySkeleton key={index} />)
-            : chapters.map((chapter, index) => (
-                <CategoryCard
-                  key={chapter.id}
-                  id={chapter.id}
-                  title={chapter.title}
-                  description={chapter.description}
-                  icon={icons[index % icons.length]}
-                  gradient={gradients[index % gradients.length]}
-                  onClick={() => setChapter(chapter)}
-                />
-              ))}
+        <div className="flex justify-center mb-16">
+          <div className="grid grid-cols-1 max-w-[500px] gap-8">
+            {isLoading
+              ? [...Array(4)].map((_, index) => (
+                  <CategorySkeleton key={index} />
+                ))
+              : chapters.map((chapter, index) => (
+                  <CategoryCard
+                    key={chapter.id}
+                    id={chapter.id}
+                    title={chapter.title}
+                    description={chapter.description}
+                    icon={icons[index % icons.length]}
+                    gradient={gradients[index % gradients.length]}
+                    onClick={() => setChapter(chapter)}
+                  />
+                ))}
+          </div>
         </div>
       </div>
     </div>
