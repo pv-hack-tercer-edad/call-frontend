@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 
-function Start() {
+function StartExperience() {
   const [isSliding, setIsSliding] = useState(false);
 
   const handleClick = () => {
@@ -37,4 +37,4 @@ function Start() {
   );
 }
 
-export default Start;
+export default StartExperience;
