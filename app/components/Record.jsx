@@ -118,8 +118,14 @@ const RecordButton = ({ chapter }) => {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center space-x-4">
-      {isCalling && <Chat conversation={conversation} />}
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex flex-col justify-center items-center">
+      <div
+        className={`transition-opacity duration-500 ease-in-out transform ${
+          isCalling ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        }`}
+      >
+        <Chat conversation={conversation} />
+      </div>
       <button
         onClick={toggleConversation}
         className={`bg-gradient-to-r from-blue-500 via-purple-500 to-blue-600 hover:from-blue-600 hover:via-purple-600 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-full drop-shadow-xl transform transition-all duration-300 w-48 h-48 flex items-center justify-center ${
@@ -133,7 +139,7 @@ const RecordButton = ({ chapter }) => {
         )}
       </button>
 
-      <p className="mt-6 text-lg font-medium text-blue-900">
+      <p className="mt-6 text-lg font-medium text-white">
         {!isCalling ? "Presiona para iniciar." : "Presiona para detener."}
       </p>
     </div>
