@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { CiMicrophoneOn, CiMicrophoneOff } from "react-icons/ci";
 import { RetellWebClient } from "retell-client-js-sdk";
 import Chat from "./Chat";
+import axios from "axios";
 
 const retellWebClient = new RetellWebClient();
 
