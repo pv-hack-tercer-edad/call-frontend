@@ -93,7 +93,7 @@ const RecordButton = ({ chapter }) => {
   async function registerCall() {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/retell/create-web-call/`,
+        `${process.env.NEXT_PUBLIC_API_URL}/retell/create-web-call`,
         {
           method: "POST",
           headers: {
