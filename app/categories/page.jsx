@@ -90,7 +90,7 @@ const Categories = () => {
                   key={chapter.id}
                   id={chapter.id}
                   title={chapter.title}
-                  description={chapter.content}
+                  description={chapter.description}
                   icon={icons[index % icons.length]}
                   gradient={gradients[index % gradients.length]}
                   onClick={() => setRecord(true)}
