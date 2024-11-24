@@ -1,6 +1,6 @@
 import React from "react";
 
-const CategorySkeleton: React.FC = () => {
+function CategorySkeleton() {
   return (
     <div className="relative rounded-2xl p-8 bg-gray-800/50 animate-pulse">
       <div className="flex items-center justify-center mb-4">
@@ -14,6 +14,6 @@ const CategorySkeleton: React.FC = () => {
       </div>
     </div>
   );
-};
+}
 
 export default CategorySkeleton;

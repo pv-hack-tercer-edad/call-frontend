@@ -9,10 +9,12 @@ const agentId = process.env.AGENT_ID;
 const api_server = process.env.API_SERVER;
 const retellWebClient = new RetellWebClient();
 
-const RecordButton = () => {
+const RecordButton = (content) => {
   const [isCalling, setIsCalling] = useState(false);
   const [isAgentTalking, setIsAgentTalking] = useState(false);
   const [conversation, setConversation] = useState([]);
+
+  console.log(content);
 
   useEffect(() => {
     retellWebClient.on("call_started", () => {
@@ -53,7 +55,7 @@ const RecordButton = () => {
     if (isCalling) {
       retellWebClient.stopCall();
     } else {
-      const registerCallResponse = await registerCall(agentId);
+      const registerCallResponse = await registerCall(agentId, content);
       const callId = registerCallResponse.call_id;
 
       console.log("callId", callId);

@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/components/Record.jsx", "app/history/page.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/components/Record.jsx", "app/history/page.jsx", "app/components/CategorySkeleton.jsx", "app/components/CategoryCard.jsx"],
   "exclude": ["node_modules"]
 }
