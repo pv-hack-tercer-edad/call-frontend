@@ -15,16 +15,16 @@ const RecordButton = ({ chapter }) => {
   const [aux, setAux] = useState(false);
 
   const getCall = async () => {
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/retell/get-call`, {
-      method: "POST",
-      body: JSON.stringify({
+    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/retell/get-call`, {
         call_id: callId,
         chapter_id: chapter.id,
-      }),
-      headers: {
-        "Content-Type": "application/json",
       },
-    });
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
   };
   useEffect(() => {
     async function other_aux() {
