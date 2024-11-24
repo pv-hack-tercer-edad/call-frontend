@@ -44,6 +44,7 @@ const History = () => {
                 description={item.description}
                 date={"Hace menos de 1 día"}
                 duration={"Menos de 1 hora"}
+                disable={!Boolean(item.video_link)}
                 onClick={() => handleItemClick(item)}
               />
             ))}

@@ -16,16 +16,16 @@ const RecordButton = ({ chapter }) => {
   const [aux, setAux] = useState(false);
 
   const getCall = async () => {
-    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/retell/get-call`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/retell/get-call`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
         call_id: callId,
         chapter_id: chapter.id,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+      }),
+    });
   };
   useEffect(() => {
     async function other_aux() {
@@ -67,7 +67,7 @@ const RecordButton = ({ chapter }) => {
   const toggleConversation = async () => {
     if (isCalling) {
       retellWebClient.stopCall();
-      getCall(callId);
+      await getCall(callId);
       window.location.href = "/history";
     } else {
       const registerCallResponse = await registerCall();

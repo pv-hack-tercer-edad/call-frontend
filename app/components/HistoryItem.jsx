@@ -1,7 +1,14 @@
 import React from "react";
 import { Play, Clock } from "lucide-react";
 
-const HistoryItem = ({ title, description, date, duration, onClick }) => {
+const HistoryItem = ({
+  title,
+  description,
+  date,
+  duration,
+  onClick,
+  disable,
+}) => {
   return (
     <div
       onClick={onClick}
@@ -24,11 +31,13 @@ const HistoryItem = ({ title, description, date, duration, onClick }) => {
             </div>
           </div>
         </div>
-        <div className="ml-4">
-          <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center group-hover:bg-purple-500/20 transition-colors">
-            <Play className="w-5 h-5 text-purple-400 group-hover:text-purple-300" />
+        {!disable && (
+          <div className="ml-4">
+            <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center group-hover:bg-purple-500/20 transition-colors">
+              <Play className="w-5 h-5 text-purple-400 group-hover:text-purple-300" />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
