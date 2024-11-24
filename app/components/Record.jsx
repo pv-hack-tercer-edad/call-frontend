@@ -15,7 +15,7 @@ const RecordButton = ({ chapter }) => {
   const [aux, setAux] = useState(false);
 
   const getCall = async () => {
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/retell/get-call/`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/retell/get-call`, {
       method: "POST",
       body: JSON.stringify({
         call_id: callId,
