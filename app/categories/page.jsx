@@ -33,10 +33,6 @@ const Categories = () => {
   const [chapters, setchapters] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  console.log({
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
-  });
-
   useEffect(() => {
     const fetchCategories = async () => {
       try {
