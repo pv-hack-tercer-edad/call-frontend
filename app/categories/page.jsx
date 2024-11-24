@@ -79,7 +79,7 @@ const Categories = () => {
           </p>
         </div>
         <div className="flex justify-center mb-16">
-          <div className="grid grid-cols-1 max-w-[500px] gap-8">
+          <div className="grid grid-cols-1 min-w-[300px] max-w-[500px] gap-8">
             {isLoading
               ? [...Array(4)].map((_, index) => (
                   <CategorySkeleton key={index} />
