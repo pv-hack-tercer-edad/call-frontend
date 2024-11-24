@@ -15,20 +15,16 @@ const RecordButton = ({ chapter }) => {
   const [aux, setAux] = useState(false);
 
   const getCall = async () => {
-    const params = new URLSearchParams({
-      call_id: callId,
-      chapter_id: chapter.id,
-    }).toString();
-
-    await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/retell/get-call/?` + `${params}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/retell/get-call/`, {
+      method: "POST",
+      body: JSON.stringify({
+        call_id: callId,
+        chapter_id: chapter.id,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   };
   useEffect(() => {
     async function other_aux() {
