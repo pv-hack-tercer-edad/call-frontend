@@ -10,7 +10,6 @@ import {
   Gamepad,
   Coffee,
   BookOpen,
-  LucideIcon,
 } from "lucide-react";
 import CategoryCard from "../components/CategoryCard";
 import CategorySkeleton from "../components/CategorySkeleton";
@@ -30,9 +29,9 @@ const gradients = [
 ];
 
 const Categories = () => {
-  const [categories, setCategories] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [record, setRecord] = useState(false);
+  const [chapters, setchapters] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   console.log({
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
@@ -42,10 +41,22 @@ const Categories = () => {
     const fetchCategories = async () => {
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/generative-questions/`
+          `${process.env.NEXT_PUBLIC_API_URL}/stories/create`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              title: "Mi story",
+              user_id: 11,
+            }),
+          }
         );
+
         const data = await response.json();
-        setCategories(data);
+        const chapters = data["chapters"];
+        setchapters(chapters);
       } catch (error) {
         console.error("Error fetching categories:", error);
       } finally {
@@ -74,12 +85,12 @@ const Categories = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {isLoading
             ? [...Array(4)].map((_, index) => <CategorySkeleton key={index} />)
-            : categories.map((category, index) => (
+            : chapters.map((chapter, index) => (
                 <CategoryCard
-                  key={category.id}
-                  id={category.id}
-                  title={category.theme}
-                  description={category.content}
+                  key={chapter.id}
+                  id={chapter.id}
+                  title={chapter.title}
+                  description={chapter.content}
                   icon={icons[index % icons.length]}
                   gradient={gradients[index % gradients.length]}
                   onClick={() => setRecord(true)}
