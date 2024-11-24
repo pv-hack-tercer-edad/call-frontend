@@ -16,23 +16,9 @@ import CategoryCard from "../components/CategoryCard";
 import CategorySkeleton from "../components/CategorySkeleton";
 import RecordButton from "../components/Record";
 
-interface Category {
-  theme: string;
-  content: string;
-  id: number;
-}
+const icons = [Music, Headphones, BookOpen, Mic, Brain, Heart, Gamepad, Coffee];
 
-const icons: LucideIcon[] = [
-  Music,
-  Headphones,
-  BookOpen,
-  Mic,
-  Brain,
-  Heart,
-  Gamepad,
-  Coffee,
-];
-const gradients: string[] = [
+const gradients = [
   "bg-gradient-to-br from-purple-600 to-blue-500",
   "bg-gradient-to-br from-cyan-500 to-blue-500",
   "bg-gradient-to-br from-green-500 to-emerald-500",
@@ -44,9 +30,9 @@ const gradients: string[] = [
 ];
 
 const Categories = () => {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [record, setRecord] = useState<boolean>(false);
+  const [categories, setCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [record, setRecord] = useState(false);
 
   console.log({
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
@@ -58,7 +44,7 @@ const Categories = () => {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/generative-questions/`
         );
-        const data: Category[] = await response.json();
+        const data = await response.json();
         setCategories(data);
       } catch (error) {
         console.error("Error fetching categories:", error);
