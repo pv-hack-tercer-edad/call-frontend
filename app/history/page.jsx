@@ -60,19 +60,22 @@ const History = () => {
           </h1>
           <p className="text-gray-400 text-lg">Your recently played episodes</p>
         </div>
-
-        <div className="space-y-4">
-          {historyData.map((item) => (
-            <HistoryItem
-              key={item.id}
-              title={item.title}
-              description={item.description}
-              date={item.date}
-              duration={item.duration}
-              onClick={() => handleItemClick(item.id)}
-            />
-          ))}
-        </div>
+        {historyData ? (
+          <div className="space-y-4">
+            {historyData.map((item) => (
+              <HistoryItem
+                key={item.id}
+                title={item.title}
+                description={item.description}
+                date={item.date}
+                duration={item.duration}
+                onClick={() => handleItemClick(item.id)}
+              />
+            ))}
+          </div>
+        ) : (
+          <p className="text-gray-400 text-lg text-center">No history yet</p>
+        )}
       </div>
     </div>
   );
