@@ -5,25 +5,48 @@ import { CiMicrophoneOn, CiMicrophoneOff } from "react-icons/ci";
 import { RetellWebClient } from "retell-client-js-sdk";
 import Chat from "./Chat";
 
-const agentId = process.env.AGENT_ID;
-const api_server = process.env.API_SERVER;
 const retellWebClient = new RetellWebClient();
 
-const RecordButton = (content) => {
+const RecordButton = ({ chapter }) => {
   const [isCalling, setIsCalling] = useState(false);
   const [isAgentTalking, setIsAgentTalking] = useState(false);
   const [conversation, setConversation] = useState([]);
+  const [callId, setCallId] = useState();
+  const [aux, setAux] = useState(false);
 
-  console.log(content);
+  const getCall = async () => {
+    const params = new URLSearchParams({
+      call_id: callId,
+      chapter_id: chapter.id,
+    }).toString();
+
+    await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/retell/get-call?` + `${params}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  };
+  useEffect(() => {
+    async function other_aux() {
+      if (aux == true) {
+        getCall(callId);
+      }
+    }
+    other_aux();
+  }, [aux]);
 
   useEffect(() => {
     retellWebClient.on("call_started", () => {
       console.log("call started");
     });
 
-    retellWebClient.on("call_ended", () => {
-      console.log("call ended");
+    retellWebClient.on("call_ended", async (param) => {
       setIsCalling(false);
+      setAux(true);
     });
 
     retellWebClient.on("agent_start_talking", () => {
@@ -38,12 +61,9 @@ const RecordButton = (content) => {
 
     retellWebClient.on("update", (update) => {
       setConversation((prev) => [...prev, update]);
-      console.log(update);
     });
 
-    retellWebClient.on("metadata", (metadata) => {
-      console.log(metadata);
-    });
+    retellWebClient.on("metadata", (metadata) => {});
 
     retellWebClient.on("error", (error) => {
       console.error("An error occurred:", error);
@@ -54,11 +74,12 @@ const RecordButton = (content) => {
   const toggleConversation = async () => {
     if (isCalling) {
       retellWebClient.stopCall();
+      getCall(callId);
     } else {
-      const registerCallResponse = await registerCall(agentId, content);
+      const registerCallResponse = await registerCall();
       const callId = registerCallResponse.call_id;
 
-      console.log("callId", callId);
+      setCallId(callId);
       if (registerCallResponse.access_token) {
         retellWebClient
           .startCall({
@@ -73,20 +94,21 @@ const RecordButton = (content) => {
     }
   };
 
-  async function registerCall(agentId, content) {
+  async function registerCall() {
     try {
-      const response = await fetch(`${api_server}/create-web-call`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          agent_id: agentId,
-          retell_llm_dynamic_variables: {
-            category: content,
+      console.log(chapter);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/retell/create-web-call/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
           },
-        }),
-      });
+          body: JSON.stringify({
+            category: chapter.description,
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);

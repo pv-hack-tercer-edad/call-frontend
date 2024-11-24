@@ -13,7 +13,7 @@ function CategoryCard({
   return (
     <div
       className={`relative group cursor-pointer rounded-2xl p-8 transition-all duration-500 transform hover:scale-105 hover:shadow-2xl ${gradient}`}
-      onClick={() => onClick(`/categories/${id}`)}
+      onClick={() => onClick()}
     >
       <div className="flex items-center justify-center mb-4">
         <Icon className="w-12 h-12 text-white" />

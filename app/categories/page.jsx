@@ -29,7 +29,7 @@ const gradients = [
 ];
 
 const Categories = () => {
-  const [record, setRecord] = useState(false);
+  const [chapter, setChapter] = useState(false);
   const [chapters, setchapters] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -67,8 +67,8 @@ const Categories = () => {
     fetchCategories();
   }, []);
 
-  if (record) {
-    return <RecordButton />;
+  if (chapter) {
+    return <RecordButton chapter={chapter} />;
   }
 
   return (
@@ -76,7 +76,7 @@ const Categories = () => {
       <div className="container mx-auto px-4 py-16">
         <div className="text-center mb-16">
           <h1 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600 mb-4">
-            Descubre las categorías
+            Cuéntame tu historia
           </h1>
           <p className="text-xl text-gray-300">
             Elige la categoría de la cual quieres ser parte
@@ -93,7 +93,7 @@ const Categories = () => {
                   description={chapter.description}
                   icon={icons[index % icons.length]}
                   gradient={gradients[index % gradients.length]}
-                  onClick={() => setRecord(true)}
+                  onClick={() => setChapter(chapter)}
                 />
               ))}
         </div>
