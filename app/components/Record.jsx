@@ -21,7 +21,7 @@ const RecordButton = ({ chapter }) => {
     }).toString();
 
     await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/retell/get-call?` + `${params}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/retell/get-call/?` + `${params}`,
       {
         method: "GET",
         headers: {
