@@ -71,6 +71,7 @@ const RecordButton = ({ chapter }) => {
     if (isCalling) {
       retellWebClient.stopCall();
       getCall(callId);
+      window.location.href = "/history";
     } else {
       const registerCallResponse = await registerCall();
       const callId = registerCallResponse.call_id;
