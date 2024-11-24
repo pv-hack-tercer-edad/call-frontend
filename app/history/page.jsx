@@ -18,7 +18,7 @@ const History = () => {
   useEffect(() => {
     async function getChapters() {
       const { data } = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/chapter?user_id=11`
+        `${process.env.NEXT_PUBLIC_API_URL}/chapter/?user_id=11`
       );
       setChapters(data);
     }
