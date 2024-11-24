@@ -40,9 +40,7 @@ const RecordButton = ({ chapter }) => {
   }, [aux]);
 
   useEffect(() => {
-    retellWebClient.on("call_started", () => {
-      console.log("call started");
-    });
+    retellWebClient.on("call_started", () => {});
 
     retellWebClient.on("call_ended", async (param) => {
       setIsCalling(false);
@@ -50,12 +48,10 @@ const RecordButton = ({ chapter }) => {
     });
 
     retellWebClient.on("agent_start_talking", () => {
-      console.log("agent_start_talking");
       setIsAgentTalking(true);
     });
 
     retellWebClient.on("agent_stop_talking", () => {
-      console.log("agent_stop_talking");
       setIsAgentTalking(false);
     });
 
@@ -96,7 +92,6 @@ const RecordButton = ({ chapter }) => {
 
   async function registerCall() {
     try {
-      console.log(chapter);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/retell/create-web-call/`,
         {
@@ -117,7 +112,6 @@ const RecordButton = ({ chapter }) => {
       const data = await response.json();
       return data;
     } catch (err) {
-      console.log(err);
       throw new Error(err);
     }
   }
