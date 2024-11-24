@@ -68,34 +68,30 @@ const Categories = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-      <div className="container mx-auto px-4 py-16">
-        <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600 mb-4">
-            Cuéntame tu historia
-          </h1>
-          <p className="text-xl text-gray-300">
-            Elige la categoría de la cual quieres ser parte
-          </p>
-        </div>
-        <div className="flex justify-center mb-16">
-          <div className="grid grid-cols-1 min-w-[300px] max-w-[500px] gap-8">
-            {isLoading
-              ? [...Array(4)].map((_, index) => (
-                  <CategorySkeleton key={index} />
-                ))
-              : chapters.map((chapter, index) => (
-                  <CategoryCard
-                    key={chapter.id}
-                    id={chapter.id}
-                    title={chapter.title}
-                    description={chapter.description}
-                    icon={icons[index % icons.length]}
-                    gradient={gradients[index % gradients.length]}
-                    onClick={() => setChapter(chapter)}
-                  />
-                ))}
-          </div>
+    <div className="container mx-auto px-4 py-16">
+      <div className="text-center mb-16">
+        <h1 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600 mb-4">
+          Cuéntame tu historia
+        </h1>
+        <p className="text-xl text-gray-300">
+          Siemrpe kjdhas askjhd sdfdsfsdfdsf sdfsdfs sdfsdfsdfsdf
+        </p>
+      </div>
+      <div className="flex justify-center mb-16">
+        <div className="grid grid-cols-1 min-w-[300px] max-w-[500px] gap-8">
+          {isLoading
+            ? [...Array(4)].map((_, index) => <CategorySkeleton key={index} />)
+            : chapters.map((chapter, index) => (
+                <CategoryCard
+                  key={chapter.id}
+                  id={chapter.id}
+                  title={chapter.title}
+                  description={chapter.description}
+                  icon={icons[index % icons.length]}
+                  gradient={gradients[index % gradients.length]}
+                  onClick={() => setChapter(chapter)}
+                />
+              ))}
         </div>
       </div>
     </div>
